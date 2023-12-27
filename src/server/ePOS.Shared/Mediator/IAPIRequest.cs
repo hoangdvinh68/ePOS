@@ -1,4 +1,4 @@
-﻿namespace ePOS.Application.Common.Mediator;
+﻿namespace ePOS.Shared.Mediator;
 
 public interface IAPIRequest : IRequest<APIResponse>
 {

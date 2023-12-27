@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace ePOS.Shared.Models;
+﻿namespace ePOS.Shared.Models;
 
 public class QueryDetail
 {

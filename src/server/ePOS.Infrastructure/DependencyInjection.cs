@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace ePOS.Infrastructure;
+﻿namespace ePOS.Infrastructure;
 
 public static class DependencyInjection
 {

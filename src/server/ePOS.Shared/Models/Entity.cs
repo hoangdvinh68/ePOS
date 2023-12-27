@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ePOS.Shared.Models;
+﻿namespace ePOS.Shared.Models;
 
 public interface IEntity
 {

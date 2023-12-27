@@ -1,11 +1,8 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace ePOS.Application;
+﻿namespace ePOS.Shared;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services, AppSettings appSettings)
+    public static IServiceCollection AddSharedServices(this IServiceCollection services, AppSettings appSettings)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

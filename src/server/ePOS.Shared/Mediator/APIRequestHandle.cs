@@ -1,4 +1,4 @@
-﻿namespace ePOS.Application.Common.Mediator;
+﻿namespace ePOS.Shared.Mediator;
 
 public abstract class APIRequestHandle<TRequest> : IRequestHandler<TRequest, APIResponse>
     where TRequest : IRequest<APIResponse>

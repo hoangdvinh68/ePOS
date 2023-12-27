@@ -1,4 +1,6 @@
-﻿namespace ePOS.Application.Behaviors;
+﻿using ValidationException = FluentValidation.ValidationException;
+
+namespace ePOS.Shared.Behaviors;
 
 public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

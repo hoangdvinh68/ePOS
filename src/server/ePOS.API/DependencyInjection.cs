@@ -7,13 +7,12 @@ public static class DependencyInjection
     public static IServiceCollection AddAPIServices(this IServiceCollection services, AppSettings appSettings)
     {
         services.AddHealthChecks();
-        services.AddCoreSwagger();
+        services.AddCustomSwagger();
         services.AddHttpContextAccessor();
         return services;
     }
     
-    # region CoreSwagger
-    private static IServiceCollection AddCoreSwagger(this IServiceCollection services)
+    private static IServiceCollection AddCustomSwagger(this IServiceCollection services)
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
@@ -47,5 +46,4 @@ public static class DependencyInjection
         });
         return services;
     }
-    # endregion
 }

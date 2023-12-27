@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ePOS.Shared\ePOS.Shared.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Folder Include="Entities\" />
       <Folder Include="Enums\" />
     </ItemGroup>

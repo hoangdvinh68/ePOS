@@ -9,10 +9,8 @@ public class TenantContext : IdentityDbContext<ApplicationUser, ApplicationRole,
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        // ENTITY_CONFIGURATIONS
         modelBuilder.ApplyConfiguration(new ApplicationUserConfiguration());
         modelBuilder.ApplyConfiguration(new ApplicationRoleConfiguration());
-        // MODEL_CREATING
         ModelCreating<ApplicationUser>(modelBuilder);
         ModelCreating<ApplicationRole>(modelBuilder);
     }

@@ -18,7 +18,7 @@ var services = builder.Services;
 services.AddSingleton(appSettings);
 services.AddAPIServices(appSettings);
 services.AddInfrastructureServices(appSettings);
-services.AddApplicationServices(appSettings);
+services.AddSharedServices(appSettings);
 
 var app = builder.Build();
 app.UseHealthChecks("/health");

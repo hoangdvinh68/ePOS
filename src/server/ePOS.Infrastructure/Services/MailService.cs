@@ -1,4 +1,5 @@
-﻿using MimeKit;
+﻿using ePOS.Shared.Contracts;
+using MimeKit;
 
 namespace ePOS.Infrastructure.Services;
 
