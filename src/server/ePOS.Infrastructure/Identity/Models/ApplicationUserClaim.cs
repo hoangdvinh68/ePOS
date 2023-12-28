@@ -1,4 +1,6 @@
-﻿namespace ePOS.Infrastructure.Identity.Models;
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace ePOS.Infrastructure.Identity.Models;
 
 public class ApplicationUserClaim : IdentityUserClaim<Guid>
 {

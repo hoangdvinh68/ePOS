@@ -1,5 +1,8 @@
 ﻿using System.Net;
 using System.Text.Json;
+using ePOS.Shared.Exceptions;
+using ePOS.Shared.ValueObjects;
+using FluentValidation;
 
 namespace ePOS.API.Middlewares;
 

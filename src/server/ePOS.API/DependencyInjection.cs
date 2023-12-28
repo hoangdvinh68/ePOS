@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using ePOS.Shared.ValueObjects;
+using Microsoft.OpenApi.Models;
 
 namespace ePOS.API;
 

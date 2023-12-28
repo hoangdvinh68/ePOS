@@ -1,6 +1,9 @@
-﻿using ValidationException = FluentValidation.ValidationException;
+﻿using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Logging;
+using ValidationException = FluentValidation.ValidationException;
 
-namespace ePOS.Shared.Behaviors;
+namespace ePOS.Shared.Mediator;
 
 public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>

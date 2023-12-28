@@ -1,4 +1,6 @@
 ﻿using ePOS.Shared.Contracts;
+using ePOS.Shared.ValueObjects;
+using Microsoft.Extensions.Logging;
 using MimeKit;
 
 namespace ePOS.Infrastructure.Services;

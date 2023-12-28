@@ -1,4 +1,10 @@
-﻿namespace ePOS.Infrastructure.Persistence;
+﻿using ePOS.Domain.Common;
+using ePOS.Infrastructure.Identity.Models;
+using ePOS.Shared.Contracts;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace ePOS.Infrastructure.Persistence;
 
 public class TenantContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid,
     ApplicationUserClaim, ApplicationUserRole, ApplicationUserLogin,
@@ -9,13 +15,11 @@ public class TenantContext : IdentityDbContext<ApplicationUser, ApplicationRole,
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfiguration(new ApplicationUserConfiguration());
-        modelBuilder.ApplyConfiguration(new ApplicationRoleConfiguration());
-        ModelCreating<ApplicationUser>(modelBuilder);
-        ModelCreating<ApplicationRole>(modelBuilder);
+        new ApplicationUser().ModelCreating(modelBuilder);
+        new ApplicationRole().ModelCreating(modelBuilder);
     }
 
-    private static void ModelCreating<T>(ModelBuilder modelBuilder) where T : class, IEntity
+    private static void ModelCreatingSequence<T>(ModelBuilder modelBuilder) where T : class, IEntity
     {
         var sequence = $"Sequence_{typeof(T).Name}";
         modelBuilder.HasSequence<int>(sequence);

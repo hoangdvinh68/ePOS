@@ -1,4 +1,6 @@
-﻿namespace ePOS.Shared.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace ePOS.Shared.ValueObjects;
 
 public class QueryDetail
 {

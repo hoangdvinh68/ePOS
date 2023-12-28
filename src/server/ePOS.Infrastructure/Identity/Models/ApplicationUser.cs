@@ -1,4 +1,8 @@
-﻿namespace ePOS.Infrastructure.Identity.Models;
+﻿using ePOS.Domain.Common;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
+namespace ePOS.Infrastructure.Identity.Models;
 
 public class ApplicationUser : IdentityUser<Guid>, IAuditableEntity
 {
@@ -39,11 +43,48 @@ public class ApplicationUser : IdentityUser<Guid>, IAuditableEntity
     public virtual ICollection<ApplicationUserToken> Tokens { get; set; } = default!;
     
     public virtual ICollection<ApplicationUserRole> UserRoles { get; set; } = default!;
+    
+    public virtual void ModelCreating(ModelBuilder modelBuilder)
+    {
+        const string sequence = $"Sequence_{nameof(ApplicationUser)}";
+        modelBuilder.HasSequence<int>(sequence);
+        modelBuilder.Entity<ApplicationUser>()
+            .Property(x => x.SubId)
+            .HasDefaultValueSql($"NEXT VALUE FOR {sequence}");
+        modelBuilder.Entity<ApplicationUser>().HasIndex(x => x.SubId);
+        
+        // Each User can have many UserClaims
+        modelBuilder.Entity<ApplicationUser>()
+            .HasMany(e => e.Claims)
+            .WithOne(e => e.User)
+            .HasForeignKey(uc => uc.UserId)
+            .IsRequired();
+
+        // Each User can have many UserLogins
+        modelBuilder.Entity<ApplicationUser>()
+            .HasMany(e => e.Logins)
+            .WithOne(e => e.User)
+            .HasForeignKey(ul => ul.UserId)
+            .IsRequired();
+
+        // Each User can have many UserTokens
+        modelBuilder.Entity<ApplicationUser>()
+            .HasMany(e => e.Tokens)
+            .WithOne(e => e.User)
+            .HasForeignKey(ut => ut.UserId)
+            .IsRequired();
+
+        // Each User can have many entries in the UserRole join table
+        modelBuilder.Entity<ApplicationUser>()
+            .HasMany(e => e.UserRoles)
+            .WithOne(e => e.User)
+            .HasForeignKey(ur => ur.UserId)
+            .IsRequired();
+    }
 }
 
 public enum UserStatus
 {
     Active,
     Lock,
-    Deleted
 }

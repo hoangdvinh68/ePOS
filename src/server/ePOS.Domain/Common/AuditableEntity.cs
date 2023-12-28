@@ -1,11 +1,4 @@
-﻿namespace ePOS.Shared.Models;
-
-public interface IEntity
-{
-    public Guid Id { get; set; }
-    
-    public long SubId { get; set; }
-}
+﻿namespace ePOS.Domain.Common;
 
 public interface IAuditableEntity : IEntity
 {
@@ -20,22 +13,6 @@ public interface IAuditableEntity : IEntity
     void SetCreate(Guid? userId);
     
     void SetModify(Guid? userId);
-}
-
-public interface ISoftDeletableEntity
-{
-    public bool Deleted { get; set; }
-
-    void SetDelete();
-}
-
-
-public class Entity : IEntity
-{
-    [Key]
-    public Guid Id { get; set; }
-    
-    public long SubId { get; set; }
 }
 
 public class AuditableEntity : Entity, IAuditableEntity

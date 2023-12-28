@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Design;
+﻿using ePOS.Shared.ValueObjects;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace ePOS.Infrastructure.Persistence;
@@ -8,8 +10,6 @@ public class TenantContextFactory : IDesignTimeDbContextFactory<TenantContext>
     public TenantContext CreateDbContext(string[] args)
     {
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-        
-        Console.WriteLine(Environment.CurrentDirectory);
         
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Environment.CurrentDirectory)

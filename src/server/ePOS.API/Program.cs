@@ -1,3 +1,11 @@
+using ePOS.API;
+using ePOS.Infrastructure;
+using ePOS.Infrastructure.Persistence.Migrates;
+using ePOS.Shared;
+using ePOS.Shared.ValueObjects;
+using Microsoft.AspNetCore.Diagnostics;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 var environment = builder.Environment;
 var appSettings = new AppSettings();
@@ -17,8 +25,8 @@ builder.Logging.AddSerilog();
 var services = builder.Services;
 services.AddSingleton(appSettings);
 services.AddAPIServices(appSettings);
-services.AddInfrastructureServices(appSettings);
 services.AddSharedServices(appSettings);
+services.AddInfrastructureServices(appSettings);
 
 var app = builder.Build();
 app.UseHealthChecks("/health");

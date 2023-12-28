@@ -1,4 +1,7 @@
-﻿namespace ePOS.API.Controllers;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ePOS.API.Controllers;
 
 [ApiController]
 [Route("api/v1")]

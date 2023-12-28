@@ -1,4 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using ePOS.Infrastructure.Identity.Models;
+using ePOS.Infrastructure.Persistence.Migrates;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Polly;
 
 namespace ePOS.Infrastructure.Persistence;
@@ -8,7 +13,6 @@ public static class TenantContextSeed
     public static async Task SeedAsync(TenantContext context, ILogger<TenantContext> logger, IServiceProvider serviceProvider)
     {
         var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
         
         var policy = Policy.Handle<SqlException>().WaitAndRetryAsync(
             retryCount: 5,
@@ -20,27 +24,8 @@ public static class TenantContextSeed
 
         await policy.ExecuteAsync(async () =>
         {
-            await SeedUsersAsync(context, userManager);
+            await MigrateUser.SeedUsersAsync(context, userManager);
             await context.SaveChangesAsync();
         });
-    }
-
-    private static async Task SeedUsersAsync(TenantContext context, UserManager<ApplicationUser> userManager)
-    {
-        if (!await context.Users.AnyAsync(x => x.Email.Equals("admin@epos.com")))
-        {
-            var userBaseEntry = await context.Users.AddAsync(new ApplicationUser()
-            {
-                Id = Guid.NewGuid(),
-                FirstName = "Admin",
-                LastName = "Owner",
-                Email = "admin@epos.com",
-                UserName = "admin@epos.com",
-                Status = UserStatus.Active,
-                CreatedAt = DateTimeOffset.Now,
-            });
-            
-            await userManager.CreateAsync(userBaseEntry.Entity, "Admin@123");
-        }
     }
 }

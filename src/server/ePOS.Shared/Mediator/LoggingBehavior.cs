@@ -1,4 +1,7 @@
-﻿namespace ePOS.Shared.Behaviors;
+﻿using MediatR;
+using Microsoft.Extensions.Logging;
+
+namespace ePOS.Shared.Mediator;
 
 public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
     where TRequest : IRequest<TResponse>

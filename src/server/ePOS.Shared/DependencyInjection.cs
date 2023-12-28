@@ -1,4 +1,11 @@
-﻿namespace ePOS.Shared;
+﻿using System.Reflection;
+using ePOS.Shared.Mediator;
+using ePOS.Shared.ValueObjects;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace ePOS.Shared;
 
 public static class DependencyInjection
 {
