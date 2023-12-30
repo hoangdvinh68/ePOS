@@ -1,9 +1,9 @@
 using ePOS.API;
+using ePOS.API.Middlewares;
+using ePOS.Application;
 using ePOS.Infrastructure;
 using ePOS.Infrastructure.Persistence.Migrates;
-using ePOS.Shared;
 using ePOS.Shared.ValueObjects;
-using Microsoft.AspNetCore.Diagnostics;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,7 +25,7 @@ builder.Logging.AddSerilog();
 var services = builder.Services;
 services.AddSingleton(appSettings);
 services.AddAPIServices(appSettings);
-services.AddSharedServices(appSettings);
+services.AddApplicationServices(appSettings);
 services.AddInfrastructureServices(appSettings);
 
 var app = builder.Build();

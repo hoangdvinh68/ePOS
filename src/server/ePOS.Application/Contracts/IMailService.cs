@@ -1,4 +1,4 @@
-﻿namespace ePOS.Shared.Contracts;
+﻿namespace ePOS.Application.Contracts;
 
 public interface IMailService
 {

@@ -6,8 +6,7 @@ namespace ePOS.API.Controllers;
 [Route("api/v1")]
 public class PingController : ControllerBase
 {
-    [HttpGet]
-    [Route("ping")]
+    [HttpGet("ping")]
     public Task<IActionResult> Ping()
     {
         return Task.FromResult<IActionResult>(Ok("Pong"));

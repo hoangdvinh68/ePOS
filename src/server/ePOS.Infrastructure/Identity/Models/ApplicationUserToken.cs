@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ePOS.Infrastructure.Identity.Models;
 
+[Table(nameof(ApplicationUserToken), Schema = "Identity")]
 public class ApplicationUserToken : IdentityUserToken<Guid>
 {
     [Key]

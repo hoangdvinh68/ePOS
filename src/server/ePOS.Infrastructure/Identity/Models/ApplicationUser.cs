@@ -1,13 +1,19 @@
-﻿using ePOS.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ePOS.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ePOS.Infrastructure.Identity.Models;
 
+[Table(nameof(ApplicationUser), Schema = "Identity")]
 public class ApplicationUser : IdentityUser<Guid>, IAuditableEntity
 {
     public long SubId { get; set; }
-
+    
+    public Guid TenantId { get; set; }
+    
+    public string? Description { get; set; }
+    
     public string FirstName { get; set; } = default!;
 
     public string LastName { get; set; } = default!;

@@ -1,12 +1,18 @@
-﻿using ePOS.Domain.Common;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using ePOS.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ePOS.Infrastructure.Identity.Models;
 
+[Table(nameof(ApplicationRole), Schema = "Identity")]
 public class ApplicationRole : IdentityRole<Guid>, IEntity
 {
     public long SubId { get; set; }
+    
+    public Guid TenantId { get; set; }
+    
+    public string? Description { get; set; }
     
     public virtual ICollection<ApplicationUserRole> UserRoles { get; set; } = default!;
 

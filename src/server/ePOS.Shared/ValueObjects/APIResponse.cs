@@ -10,11 +10,11 @@ public class APIResponse
     [JsonPropertyName("statusCode")]
     public int StatusCode { get; set; }
     
-    [JsonPropertyName("message")]
+    [JsonPropertyName("message"), JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Message { get; set; }
 }
 
-public class APIResponse<TData>
+public class APIResponse<TData> : APIResponse
 {
     [JsonPropertyName("data")]
     public TData Data { get; set; } = default!;

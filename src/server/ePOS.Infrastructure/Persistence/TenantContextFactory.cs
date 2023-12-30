@@ -10,14 +10,16 @@ public class TenantContextFactory : IDesignTimeDbContextFactory<TenantContext>
     public TenantContext CreateDbContext(string[] args)
     {
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+        var appSettings = new AppSettings();
         
-        var configuration = new ConfigurationBuilder()
+        new ConfigurationBuilder()
             .SetBasePath(Environment.CurrentDirectory)
             .AddJsonFile(Path.Combine(nameof(AppSettings), $"appsettings.{environmentName}.json"))
-            .Build();
+            .Build()
+            .Bind(appSettings);
         
         var optionsBuilder = new DbContextOptionsBuilder<TenantContext>();
-        optionsBuilder.UseSqlServer(configuration.GetConnectionString("SQLServerConnection"));
+        optionsBuilder.UseSqlServer(appSettings.ConnectionStrings.SQLServerConnection);
         return new TenantContext(optionsBuilder.Options);
     }
 }

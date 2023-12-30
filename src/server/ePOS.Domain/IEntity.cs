@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
-namespace ePOS.Domain.Common;
+namespace ePOS.Domain;
 
 public interface IEntity
 {
@@ -12,8 +14,10 @@ public interface IEntity
 public class Entity : IEntity
 {
     [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [JsonProperty(Order = -2)]
     public Guid Id { get; set; }
     
+    [JsonProperty(Order = -1)]
     public long SubId { get; set; }
 }
-
