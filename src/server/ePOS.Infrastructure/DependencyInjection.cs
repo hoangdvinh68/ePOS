@@ -1,12 +1,12 @@
-﻿using ePOS.Infrastructure.Identity.Models;
+﻿using ePOS.Application.Contracts;
+using ePOS.Infrastructure.Identity.Models;
 using ePOS.Infrastructure.Persistence;
 using ePOS.Infrastructure.Providers;
-using ePOS.Shared.Contracts;
 using ePOS.Shared.ValueObjects;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using IMailService = ePOS.Shared.Contracts.IMailService;
+using IMailService = ePOS.Application.Contracts.IMailService;
 using MailService = ePOS.Infrastructure.Services.MailService;
 
 namespace ePOS.Infrastructure;

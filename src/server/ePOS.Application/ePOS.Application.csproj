@@ -11,4 +11,9 @@
       <ProjectReference Include="..\ePOS.Shared\ePOS.Shared.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Exceptions\" />
+      <Folder Include="Features\Auth\" />
+    </ItemGroup>
+
 </Project>
