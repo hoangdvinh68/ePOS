@@ -1,6 +1,6 @@
 ﻿using ePOS.Application.Contracts;
+using ePOS.Application.Mediator;
 using ePOS.Shared.Exceptions;
-using ePOS.Shared.Mediator;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +26,7 @@ public class UpdateUnitCommandHandle : APIRequestHandle<UpdateUnitCommand, Domai
 {
     private readonly ITenantContext _context;
 
-    public UpdateUnitCommandHandle(ITenantContext context)
+    public UpdateUnitCommandHandle(IUserService userService, ITenantContext context) : base(userService)
     {
         _context = context;
     }
@@ -36,7 +36,7 @@ public class UpdateUnitCommandHandle : APIRequestHandle<UpdateUnitCommand, Domai
         var unit = await _context.Units.FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
         if (unit is null) throw new RecordNotFound(nameof(Domain.UnitAggregate.Unit));
         unit.Name = request.Name;
-        unit.SetModificationTracking(null);
+        unit.SetModificationTracking(UserClaimsValue.Id);
         await _context.SaveChangesAsync(cancellationToken);
         return unit;
     }

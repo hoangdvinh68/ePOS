@@ -2,7 +2,7 @@
 
 public class RecordNotFound : BadRequestException
 {
-    public RecordNotFound(string recordName) : base( $"RecordNotFound: {recordName}")
+    public RecordNotFound(string recordName) : base( $"{recordName}NotFound")
     {
         
     }

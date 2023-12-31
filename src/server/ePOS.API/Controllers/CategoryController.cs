@@ -1,4 +1,4 @@
-﻿using ePOS.Application.Features.Category.Commands;
+﻿using ePOS.Application.Features.FeatureCategory.Commands;
 using ePOS.Domain.CategoryAggregate;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

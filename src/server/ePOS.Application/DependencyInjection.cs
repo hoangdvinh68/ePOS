@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using ePOS.Shared.Mediator;
+using ePOS.Application.Mediator;
 using ePOS.Shared.ValueObjects;
 using FluentValidation;
 using MediatR;
