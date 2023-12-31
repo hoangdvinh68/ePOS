@@ -1,6 +1,6 @@
 ﻿using ePOS.Application.Contracts;
+using ePOS.Application.Mediator;
 using ePOS.Domain.UnitAggregate;
-using ePOS.Shared.Mediator;
 using FluentValidation;
 
 namespace ePOS.Application.Features.Unit.Commands;
@@ -22,7 +22,7 @@ public class CreateUnitCommandCommandHandle : APIRequestHandle<CreateUnitCommand
 {
     private readonly ITenantContext _context;
 
-    public CreateUnitCommandCommandHandle(ITenantContext context)
+    public CreateUnitCommandCommandHandle(IUserService userService, ITenantContext context) : base(userService)
     {
         _context = context;
     }
@@ -32,9 +32,10 @@ public class CreateUnitCommandCommandHandle : APIRequestHandle<CreateUnitCommand
         var unit = new Domain.UnitAggregate.Unit()
         {
             Name = request.Name,
-            Type = UnitType.Manual
+            Type = UnitType.Manual,
+            TenantId = UserClaimsValue.TenantId!.Value
         };
-        unit.SetCreationTracking(null);
+        unit.SetCreationTracking(UserClaimsValue.Id);
         var entryEntity = await _context.Units.AddAsync(unit, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         return entryEntity.Entity;

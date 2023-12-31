@@ -12,8 +12,6 @@ public class ApplicationUser : IdentityUser<Guid>, IAuditableEntity
     
     public Guid TenantId { get; set; }
     
-    public string? Description { get; set; }
-    
     public string FirstName { get; set; } = default!;
 
     public string LastName { get; set; } = default!;

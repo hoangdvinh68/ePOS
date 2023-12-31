@@ -1,4 +1,5 @@
-﻿using ePOS.Infrastructure.Identity.Models;
+﻿using ePOS.Domain.TenantAggregate;
+using ePOS.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,18 +11,31 @@ public static class MigrateUser
     {
         if (!await context.Users.AnyAsync(x => x.Email.Equals("admin@epos.com")))
         {
+            var defaultCurrency = await context.Currencies.FirstOrDefaultAsync(x => x.IsoCode.Equals("VND"));
+            if (defaultCurrency is null) throw new ApplicationException("SeedCurrencyFailed");
+            var tenant = new Tenant()
+            {
+                Id = Guid.NewGuid(),
+                Name = "Admin",
+                Code = "admin001",
+                CurrencyId = defaultCurrency.Id,
+                TaxRate = 0
+            };
+            await context.Tenants.AddAsync(tenant);
             var userBaseEntry = await context.Users.AddAsync(new ApplicationUser()
             {
                 Id = Guid.NewGuid(),
-                FirstName = "Admin",
-                LastName = "Owner",
+                TenantId = tenant.Id,
+                FirstName = "Super",
+                LastName = "Admin",
                 Email = "admin@epos.com",
                 UserName = "admin@epos.com",
                 Status = UserStatus.Active,
                 CreatedAt = DateTimeOffset.Now,
             });
-            
+            tenant.SetCreationTracking(userBaseEntry.Entity.Id);
             await userManager.CreateAsync(userBaseEntry.Entity, "Admin@123");
+            await context.SaveChangesAsync();
         }
     }
 }

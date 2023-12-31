@@ -24,6 +24,8 @@ public static class TenantContextSeed
 
         await policy.ExecuteAsync(async () =>
         {
+            await MigrateUnit.SeedUnitAsync(context);
+            await MigrateCurrency.SeedCurrencyAsync(context);
             await MigrateUser.SeedUsersAsync(context, userManager);
             await context.SaveChangesAsync();
         });

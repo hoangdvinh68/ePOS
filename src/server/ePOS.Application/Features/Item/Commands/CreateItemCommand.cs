@@ -1,4 +1,4 @@
-﻿namespace ePOS.Application.Features.Business.Commands;
+﻿namespace ePOS.Application.Features.Item.Commands;
 
 public class CreateItemCommand
 {

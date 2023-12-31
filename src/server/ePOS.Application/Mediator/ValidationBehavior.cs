@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using ValidationException = FluentValidation.ValidationException;
 
-namespace ePOS.Shared.Mediator;
+namespace ePOS.Application.Mediator;
 
 public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
