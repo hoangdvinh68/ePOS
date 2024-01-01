@@ -1,8 +1,8 @@
-﻿namespace ePOS.Shared.Exceptions;
+﻿namespace ePOS.Application.Exceptions;
 
 public class RecordNotFound : BadRequestException
 {
-    public RecordNotFound(string recordName) : base( $"{recordName}NotFound")
+    public RecordNotFound(string recordName, Guid? recordId = null) : base( $"{recordName}NotFound {recordId}")
     {
         
     }

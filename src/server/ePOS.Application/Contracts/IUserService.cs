@@ -1,6 +1,6 @@
 ﻿using ePOS.Application.Features.User.Commands;
 using ePOS.Application.Features.User.Responses;
-using ePOS.Shared.ValueObjects;
+using ePOS.Application.ValueObjects;
 
 namespace ePOS.Application.Contracts;
 

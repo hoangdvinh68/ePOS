@@ -1,4 +1,4 @@
-﻿using ePOS.Application.Features.FeatureCurrency.Queries;
+﻿using ePOS.Application.Features.Business.Queries;
 using ePOS.Domain.CurrencyAggregate;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ public class CurrencyController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
+    [HttpGet("list")]
     public async Task<ActionResult<List<Currency>>> List()
     {
         return Ok(await _mediator.Send(new ListCurrencyQuery()));

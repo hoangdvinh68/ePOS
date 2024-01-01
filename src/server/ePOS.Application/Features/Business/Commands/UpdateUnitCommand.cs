@@ -1,12 +1,13 @@
 ﻿using ePOS.Application.Contracts;
+using ePOS.Application.Exceptions;
 using ePOS.Application.Mediator;
-using ePOS.Shared.Exceptions;
+using ePOS.Domain.UnitAggregate;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace ePOS.Application.Features.Unit.Commands;
+namespace ePOS.Application.Features.Business.Commands;
 
-public class UpdateUnitCommand : IAPIRequest<Domain.UnitAggregate.Unit>
+public class UpdateUnitCommand : IAPIRequest<Unit>
 {
     public Guid Id { get; set; }
 
@@ -22,19 +23,19 @@ public class UpdateUnitCommandValidator : AbstractValidator<UpdateUnitCommand>
     }
 }
 
-public class UpdateUnitCommandHandle : APIRequestHandle<UpdateUnitCommand, Domain.UnitAggregate.Unit>
+public class UpdateUnitCommandHandler : APIRequestHandler<UpdateUnitCommand, Unit>
 {
     private readonly ITenantContext _context;
 
-    public UpdateUnitCommandHandle(IUserService userService, ITenantContext context) : base(userService)
+    public UpdateUnitCommandHandler(IUserService userService, ITenantContext context) : base(userService)
     {
         _context = context;
     }
 
-    protected override async Task<Domain.UnitAggregate.Unit> HandleAsync(UpdateUnitCommand request, CancellationToken cancellationToken)
+    protected override async Task<Unit> HandleAsync(UpdateUnitCommand request, CancellationToken cancellationToken)
     {
         var unit = await _context.Units.FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
-        if (unit is null) throw new RecordNotFound(nameof(Domain.UnitAggregate.Unit));
+        if (unit is null) throw new RecordNotFound(nameof(Unit), request.Id);
         unit.Name = request.Name;
         unit.SetModificationTracking(UserClaimsValue.Id);
         await _context.SaveChangesAsync(cancellationToken);

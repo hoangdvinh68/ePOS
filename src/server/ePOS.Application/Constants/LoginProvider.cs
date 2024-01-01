@@ -1,4 +1,4 @@
-﻿namespace ePOS.Shared.Constants;
+﻿namespace ePOS.Application.Constants;
 
 public static class LoginProvider
 {

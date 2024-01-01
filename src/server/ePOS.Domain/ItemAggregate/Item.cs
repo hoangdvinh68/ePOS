@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using ePOS.Domain.CategoryAggregate;
 using ePOS.Domain.UnitAggregate;
 
@@ -9,18 +8,23 @@ public class Item : AuditableEntity
 {
     public Guid ShopId { get; set; }
     
-    public string Name { get; set; } = default!;
-    
     public string Sku { get; set; } = default!;
     
-    [Range(0, 100)]
+    public string Name { get; set; } = default!;
+    
+    public double? Price { get; set; }
+    
+    public ItemStatus Status { get; set; }
+    
     public int? TaxRate { get; set; }
     
-    public bool? IsTaxInclude { get; set; }
+    public bool? IsTaxIncludePrice { get; set; }
     
-    public Guid UnitId { get; set; }
+    public Guid? UnitId { get; set; }
     [ForeignKey(nameof(UnitId))]
-    public Unit Unit { get; set; } = default!;
+    public Unit? Unit { get; set; }
+    
+    public int? MaxTopping { get; set; }
     
     public List<ItemImage>? Images { get; set; }
     
@@ -31,4 +35,10 @@ public class Item : AuditableEntity
     public List<CategoryItem>? CategoryItems { get; set; }
     
     public List<ItemProperty>? ItemProperties { get; set; }
+}
+
+public enum ItemStatus
+{
+    Active,
+    Lock
 }

@@ -1,4 +1,4 @@
-﻿namespace ePOS.Shared.Extensions;
+﻿namespace ePOS.Application.Extensions;
 
 public static class StringExtensions
 {

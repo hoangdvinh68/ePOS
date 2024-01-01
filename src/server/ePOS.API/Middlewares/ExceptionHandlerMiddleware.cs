@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
-using ePOS.Shared.Exceptions;
-using ePOS.Shared.ValueObjects;
+using ePOS.Application.Exceptions;
+using ePOS.Application.ValueObjects;
 using FluentValidation;
 
 namespace ePOS.API.Middlewares;
@@ -62,9 +62,7 @@ public class ExceptionHandlerMiddleware
         {
             return string.Join(";",fEx.Errors.Select(t => t.ErrorMessage).Distinct().ToList()) ;
         }
-
         return string.Join(";", _().Distinct().ToList());
-
         IEnumerable<string> _()
         {
             yield return ex.Message;

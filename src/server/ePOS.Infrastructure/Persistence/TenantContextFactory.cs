@@ -1,4 +1,4 @@
-﻿using ePOS.Shared.ValueObjects;
+﻿using ePOS.Application.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;

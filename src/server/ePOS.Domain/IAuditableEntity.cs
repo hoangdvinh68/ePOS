@@ -21,10 +21,10 @@ public class AuditableEntity : Entity, IAuditableEntity
     
     public Guid? ModifiedBy { get; set; }
 
-    public virtual void SetCreationTracking(Guid? userId)
+    public virtual void SetCreationTracking(Guid tenantId, Guid? userId)
     {
         CreatedAt = DateTimeOffset.UtcNow;
-        if (!CreatedBy.Equals(null)) throw new InvalidDataException();
+        TenantId = tenantId;
         CreatedBy = userId;
     }
 

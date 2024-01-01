@@ -1,4 +1,5 @@
-﻿using ePOS.Shared.ValueObjects;
+﻿using System.Text.Json.Serialization;
+using ePOS.Application.ValueObjects;
 using Microsoft.OpenApi.Models;
 
 namespace ePOS.API;
@@ -10,6 +11,12 @@ public static class DependencyInjection
         services.AddHealthChecks();
         services.AddCustomSwagger();
         services.AddHttpContextAccessor();
+        services.AddControllers().AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            options.JsonSerializerOptions.WriteIndented = true;
+            options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        });
         return services;
     }
     

@@ -1,5 +1,5 @@
 ﻿using ePOS.Application.Contracts;
-using ePOS.Shared.ValueObjects;
+using ePOS.Application.ValueObjects;
 using Microsoft.Extensions.Logging;
 using MimeKit;
 

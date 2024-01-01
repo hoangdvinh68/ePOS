@@ -1,7 +1,6 @@
 ﻿using ePOS.Domain.CategoryAggregate;
 using ePOS.Domain.CurrencyAggregate;
 using ePOS.Domain.ItemAggregate;
-using ePOS.Domain.LocationAggregate;
 using ePOS.Domain.ShopAggregate;
 using ePOS.Domain.TenantAggregate;
 using ePOS.Domain.ToppingAggregate;
@@ -18,10 +17,6 @@ public interface ITenantContext
     
     DbSet<Shop> Shops { get; set; }
     
-    DbSet<City> Cities { get; set; }
-    
-    DbSet<Country> Countries { get; set; }
-    
     DbSet<Currency> Currencies { get; set; }
     
     DbSet<Unit> Units { get; set; }
@@ -36,7 +31,7 @@ public interface ITenantContext
     
     DbSet<ItemProperty> ItemProperties { get; set; }
 
-    DbSet<ItemPropertyValue> ItemPropertyOptions { get; set; }
+    DbSet<ItemPropertyValue> ItemPropertyValues { get; set; }
     
     DbSet<ItemSize> ItemSizes { get; set; }
     

@@ -1,5 +1,5 @@
-﻿using ePOS.Application.Features.Unit.Commands;
-using ePOS.Application.Features.Unit.Queries;
+﻿using ePOS.Application.Features.Business.Commands;
+using ePOS.Application.Features.Business.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Unit = ePOS.Domain.UnitAggregate.Unit;
