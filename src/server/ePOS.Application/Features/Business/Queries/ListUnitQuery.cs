@@ -2,18 +2,18 @@
 using ePOS.Application.Mediator;
 using Microsoft.EntityFrameworkCore;
 
-namespace ePOS.Application.Features.Unit.Queries;
+namespace ePOS.Application.Features.Business.Queries;
 
 public class ListUnitQuery : IAPIRequest<List<Domain.UnitAggregate.Unit>>
 {
     
 }
 
-public class ListUnitQueryHandle : APIRequestHandle<ListUnitQuery, List<Domain.UnitAggregate.Unit>>
+public class ListUnitQueryHandler : APIRequestHandler<ListUnitQuery, List<Domain.UnitAggregate.Unit>>
 {
     private readonly ITenantContext _context;
 
-    public ListUnitQueryHandle(IUserService userService, ITenantContext context) : base(userService)
+    public ListUnitQueryHandler(IUserService userService, ITenantContext context) : base(userService)
     {
         _context = context;
     }

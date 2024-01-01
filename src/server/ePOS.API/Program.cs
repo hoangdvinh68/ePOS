@@ -1,9 +1,9 @@
 using ePOS.API;
 using ePOS.API.Middlewares;
 using ePOS.Application;
+using ePOS.Application.ValueObjects;
 using ePOS.Infrastructure;
 using ePOS.Infrastructure.Persistence.Migrates;
-using ePOS.Shared.ValueObjects;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);

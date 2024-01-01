@@ -1,6 +1,4 @@
-﻿using ePOS.Domain.TenantAggregate;
-
-namespace ePOS.Domain.CurrencyAggregate;
+﻿namespace ePOS.Domain.CurrencyAggregate;
 
 public class Currency : Entity
 {
@@ -9,6 +7,4 @@ public class Currency : Entity
     public string IsoCode { get; set; } = default!;
 
     public string Symbol { get; set; } = default!;
-    
-    public List<Tenant>? Tenants { get; set; }
 }

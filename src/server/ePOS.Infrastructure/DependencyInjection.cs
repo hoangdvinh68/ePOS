@@ -1,10 +1,10 @@
 ﻿using System.Text;
 using ePOS.Application.Contracts;
+using ePOS.Application.ValueObjects;
 using ePOS.Infrastructure.Identity.Models;
 using ePOS.Infrastructure.Persistence;
 using ePOS.Infrastructure.Providers;
 using ePOS.Infrastructure.Services;
-using ePOS.Shared.ValueObjects;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

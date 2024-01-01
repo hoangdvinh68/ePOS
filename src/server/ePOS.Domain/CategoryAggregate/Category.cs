@@ -8,6 +8,14 @@ public class Category : AuditableEntity
     
     public string Name { get; set; } = default!;
     
+    public CategoryStatus Status { get; set; }
+    
     [JsonIgnore]
     public List<CategoryItem>? CategoryItems { get; set; }
+}
+
+public enum CategoryStatus
+{
+    Active,
+    Lock
 }

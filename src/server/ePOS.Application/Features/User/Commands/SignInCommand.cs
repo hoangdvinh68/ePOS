@@ -1,7 +1,7 @@
 ﻿using ePOS.Application.Contracts;
 using ePOS.Application.Features.User.Responses;
 using ePOS.Application.Mediator;
-using ePOS.Shared.Utils;
+using ePOS.Application.Utilities;
 using FluentValidation;
 
 namespace ePOS.Application.Features.User.Commands;
@@ -22,11 +22,11 @@ public class SignInCommandValidator : AbstractValidator<SignInCommand>
     }
 }
 
-public class SignInCommandHandle : APIRequestHandle<SignInCommand, SignInResponse>
+public class SignInCommandHandler : APIRequestHandler<SignInCommand, SignInResponse>
 {
     private readonly IUserService _userService;
 
-    public SignInCommandHandle(IUserService userService, ITenantContext context) : base(userService)
+    public SignInCommandHandler(IUserService userService, ITenantContext context) : base(userService)
     {
         _userService = userService;
     }

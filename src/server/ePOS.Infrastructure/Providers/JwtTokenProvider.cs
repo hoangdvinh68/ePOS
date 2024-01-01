@@ -2,8 +2,8 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using ePOS.Application.ValueObjects;
 using ePOS.Infrastructure.Identity.Models;
-using ePOS.Shared.ValueObjects;
 using Microsoft.IdentityModel.Tokens;
 
 namespace ePOS.Infrastructure.Providers;

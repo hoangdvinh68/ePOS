@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using ePOS.Domain.ShopAggregate;
 using ePOS.Domain.ToppingAggregate;
 
 namespace ePOS.Domain.ItemAggregate;

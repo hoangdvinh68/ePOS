@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using ePOS.Application.Mediator;
-using ePOS.Shared.ValueObjects;
+using ePOS.Application.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

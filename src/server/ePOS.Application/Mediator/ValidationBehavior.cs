@@ -28,9 +28,7 @@ public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest
             .SelectMany(result => result.Errors)
             .Where(error => error != null)
             .ToList();
-
         if (!failures.Any()) return await next();
-        
         _logger.LogError("[Validation errors]: {ValidationErrors}", failures);
         throw new ValidationException(failures);
     }

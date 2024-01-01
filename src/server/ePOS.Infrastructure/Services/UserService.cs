@@ -1,15 +1,16 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using ePOS.Application.Constants;
 using ePOS.Application.Contracts;
+using ePOS.Application.Exceptions;
+using ePOS.Application.Extensions;
 using ePOS.Application.Features.User.Commands;
 using ePOS.Application.Features.User.Responses;
+using ePOS.Application.ValueObjects;
+using ePOS.Domain.ShopAggregate;
 using ePOS.Domain.TenantAggregate;
 using ePOS.Infrastructure.Identity.Models;
 using ePOS.Infrastructure.Persistence;
 using ePOS.Infrastructure.Providers;
-using ePOS.Shared.Constants;
-using ePOS.Shared.Exceptions;
-using ePOS.Shared.Extensions;
-using ePOS.Shared.ValueObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -72,16 +73,17 @@ public class UserService : IUserService
         {
             throw new BadRequestException("EmailExisted");
         }
-        var tenant = new Tenant()
-        {
-            Name = command.TenantName,
-            Code = $"{command.TenantName}{_context.Tenants.Max(x => x.SubId)}",
-            TaxRate = 0,
-        };
-        var tenantEntry = await _context.AddAsync(tenant, cancellationToken);
+        var defaultCurrency = await _context.Currencies.FirstOrDefaultAsync(x => x.IsoCode.Equals("VND"), cancellationToken);
+        if (defaultCurrency is null) throw new ApplicationException();
+        var tenant = new Tenant(
+            command.TenantName,
+            $"{command.TenantName}{_context.Tenants.Max(x => x.SubId)}",
+            defaultCurrency.Id);
+        await _context.Tenants.AddAsync(tenant, cancellationToken);
         var user = new ApplicationUser()
         {
-            TenantId = tenantEntry.Entity.Id,
+            Id = Guid.NewGuid(),
+            TenantId = tenant.Id,
             FirstName = command.FirstName,
             LastName = command.LastName,
             Status = UserStatus.Active,
@@ -90,7 +92,16 @@ public class UserService : IUserService
         };
         var result = await _userManager.CreateAsync(user, command.Password);
         if (!result.Succeeded) throw new BadRequestException(string.Join(";", result.Errors.Select(x => x.Code)));
-        tenant.SetCreationTracking(user.Id);
+        tenant.SetCreationTracking(default, user.Id);
+        var shop = new Shop()
+        {
+            Id = Guid.NewGuid(),
+            TenantId = tenant.Id,
+            Name = tenant.Name,
+            Status = ShopStatus.Active
+        };
+        shop.SetCreationTracking(tenant.Id, user.Id);
+        await _context.Shops.AddAsync(shop, cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
         return new SignUpResponse()
         {
@@ -111,7 +122,7 @@ public class UserService : IUserService
         return new UserClaimsValue()
         {
             Id = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("id"))?.Value.ToGuid(),
-            TenantId = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("tenantId"))?.Value.ToGuid(),
+            TenantId = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("tenantId"))?.Value.ToGuid() ?? default,
             FullName = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("fullName"))?.Value,
             Email = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("email"))?.Value,
         };

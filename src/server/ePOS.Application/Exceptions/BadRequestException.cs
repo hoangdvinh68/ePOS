@@ -1,4 +1,4 @@
-﻿namespace ePOS.Shared.Exceptions;
+﻿namespace ePOS.Application.Exceptions;
 
 public class BadRequestException : Exception
 {

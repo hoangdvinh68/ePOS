@@ -1,4 +1,4 @@
-﻿namespace ePOS.Shared.ValueObjects;
+﻿namespace ePOS.Application.ValueObjects;
 
 public class AppSettings
 {

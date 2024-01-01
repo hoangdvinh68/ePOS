@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace ePOS.Shared.Utils;
+namespace ePOS.Application.Utilities;
 
 public static class RegexUtils
 {

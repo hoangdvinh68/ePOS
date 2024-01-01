@@ -1,4 +1,4 @@
-﻿using ePOS.Shared.ValueObjects;
+﻿using ePOS.Application.ValueObjects;
 using MediatR;
 
 namespace ePOS.Application.Mediator;

@@ -13,16 +13,18 @@ public static class MigrateCurrency
         await context.SaveChangesAsync();
     }
 
-    private static List<Currency> Currencies = new List<Currency>()
+    private static readonly List<Currency> Currencies = new List<Currency>()
     {
         new Currency()
         {
+            Id = Guid.NewGuid(),
             Name = "United States dollar",
             IsoCode = "USD",
             Symbol = "$"
         },
         new Currency()
         {
+            Id = Guid.NewGuid(),
             Name = "Vietnamese dong",
             IsoCode = "VND",
             Symbol = "\u20ab",

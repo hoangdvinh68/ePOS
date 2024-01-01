@@ -12,8 +12,8 @@ using ePOS.Infrastructure.Persistence;
 namespace ePOS.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TenantContext))]
-    [Migration("20231230152747_CreateShopAndProduct")]
-    partial class CreateShopAndProduct
+    [Migration("20231231223309_AddShopAndItem")]
+    partial class AddShopAndItem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,10 +30,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
             modelBuilder.HasSequence<int>("Sequence_ApplicationUser");
 
             modelBuilder.HasSequence<int>("Sequence_Category");
-
-            modelBuilder.HasSequence<int>("Sequence_City");
-
-            modelBuilder.HasSequence<int>("Sequence_Country");
 
             modelBuilder.HasSequence<int>("Sequence_Currency");
 
@@ -80,10 +76,16 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.Property<Guid>("ShopId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<long>("SubId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasDefaultValueSql("NEXT VALUE FOR Sequence_Category");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -130,6 +132,9 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubId");
@@ -149,8 +154,11 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("IsTaxInclude")
+                    b.Property<bool?>("IsTaxIncludePrice")
                         .HasColumnType("bit");
+
+                    b.Property<int?>("MaxTopping")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("ModifiedAt")
                         .HasColumnType("datetimeoffset");
@@ -162,12 +170,18 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
+
                     b.Property<Guid>("ShopId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Sku")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<long>("SubId")
                         .ValueGeneratedOnAdd()
@@ -177,7 +191,10 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.Property<int?>("TaxRate")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("UnitId")
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UnitId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -207,6 +224,9 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasDefaultValueSql("NEXT VALUE FOR Sequence_ItemImage");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -239,6 +259,9 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasDefaultValueSql("NEXT VALUE FOR Sequence_ItemProperty");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ItemId");
@@ -262,6 +285,9 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasDefaultValueSql("NEXT VALUE FOR Sequence_ItemPropertyValue");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -281,7 +307,7 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ItemId")
+                    b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Price")
@@ -295,6 +321,9 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasDefaultValueSql("NEXT VALUE FOR Sequence_ItemSize");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -320,58 +349,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.ToTable("ItemToppings");
                 });
 
-            modelBuilder.Entity("ePOS.Domain.LocationAggregate.City", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CountryId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("SubId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValueSql("NEXT VALUE FOR Sequence_City");
-
-                    b.Property<int>("TimeZoneUtcOffset")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryId");
-
-                    b.HasIndex("SubId");
-
-                    b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("ePOS.Domain.LocationAggregate.Country", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("SubId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasDefaultValueSql("NEXT VALUE FOR Sequence_Country");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SubId");
-
-                    b.ToTable("Countries");
-                });
-
             modelBuilder.Entity("ePOS.Domain.ShopAggregate.Shop", b =>
                 {
                     b.Property<Guid>("Id")
@@ -381,12 +358,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("CityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CountryId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
 
@@ -395,9 +366,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDefault")
-                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("ModifiedAt")
                         .HasColumnType("datetimeoffset");
@@ -412,6 +380,9 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<long>("SubId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
@@ -424,10 +395,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CityId");
-
-                    b.HasIndex("CountryId");
 
                     b.HasIndex("SubId");
 
@@ -444,6 +411,9 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("CompanyAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
@@ -455,6 +425,12 @@ namespace ePOS.Infrastructure.Persistence.Migrations
 
                     b.Property<Guid>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("IsItemPriceIncludeTax")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTaxAppliedAllItem")
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("ModifiedAt")
                         .HasColumnType("datetimeoffset");
@@ -471,8 +447,11 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .HasColumnType("bigint")
                         .HasDefaultValueSql("NEXT VALUE FOR Sequence_Tenant");
 
-                    b.Property<int>("TaxRate")
+                    b.Property<int?>("TaxRate")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -505,17 +484,22 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Price")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<Guid>("ShopId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<long>("SubId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasDefaultValueSql("NEXT VALUE FOR Sequence_Topping");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -647,9 +631,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -840,9 +821,7 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                 {
                     b.HasOne("ePOS.Domain.UnitAggregate.Unit", "Unit")
                         .WithMany("Items")
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UnitId");
 
                     b.Navigation("Unit");
                 });
@@ -882,9 +861,13 @@ namespace ePOS.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("ePOS.Domain.ItemAggregate.ItemSize", b =>
                 {
-                    b.HasOne("ePOS.Domain.ItemAggregate.Item", null)
+                    b.HasOne("ePOS.Domain.ItemAggregate.Item", "Item")
                         .WithMany("Sizes")
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("ePOS.Domain.ItemAggregate.ItemTopping", b =>
@@ -906,36 +889,10 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.Navigation("Topping");
                 });
 
-            modelBuilder.Entity("ePOS.Domain.LocationAggregate.City", b =>
-                {
-                    b.HasOne("ePOS.Domain.LocationAggregate.Country", "Country")
-                        .WithMany("Cities")
-                        .HasForeignKey("CountryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("ePOS.Domain.ShopAggregate.Shop", b =>
-                {
-                    b.HasOne("ePOS.Domain.LocationAggregate.City", "City")
-                        .WithMany("Shops")
-                        .HasForeignKey("CityId");
-
-                    b.HasOne("ePOS.Domain.LocationAggregate.Country", "Country")
-                        .WithMany("Shops")
-                        .HasForeignKey("CountryId");
-
-                    b.Navigation("City");
-
-                    b.Navigation("Country");
-                });
-
             modelBuilder.Entity("ePOS.Domain.TenantAggregate.Tenant", b =>
                 {
                     b.HasOne("ePOS.Domain.CurrencyAggregate.Currency", "Currency")
-                        .WithMany("Tenants")
+                        .WithMany()
                         .HasForeignKey("CurrencyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1011,11 +968,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
                     b.Navigation("CategoryItems");
                 });
 
-            modelBuilder.Entity("ePOS.Domain.CurrencyAggregate.Currency", b =>
-                {
-                    b.Navigation("Tenants");
-                });
-
             modelBuilder.Entity("ePOS.Domain.ItemAggregate.Item", b =>
                 {
                     b.Navigation("CategoryItems");
@@ -1032,18 +984,6 @@ namespace ePOS.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ePOS.Domain.ItemAggregate.ItemProperty", b =>
                 {
                     b.Navigation("ItemPropertyValues");
-                });
-
-            modelBuilder.Entity("ePOS.Domain.LocationAggregate.City", b =>
-                {
-                    b.Navigation("Shops");
-                });
-
-            modelBuilder.Entity("ePOS.Domain.LocationAggregate.Country", b =>
-                {
-                    b.Navigation("Cities");
-
-                    b.Navigation("Shops");
                 });
 
             modelBuilder.Entity("ePOS.Domain.ToppingAggregate.Topping", b =>

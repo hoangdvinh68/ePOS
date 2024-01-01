@@ -3,7 +3,6 @@ using ePOS.Domain;
 using ePOS.Domain.CategoryAggregate;
 using ePOS.Domain.CurrencyAggregate;
 using ePOS.Domain.ItemAggregate;
-using ePOS.Domain.LocationAggregate;
 using ePOS.Domain.ShopAggregate;
 using ePOS.Domain.TenantAggregate;
 using ePOS.Domain.ToppingAggregate;
@@ -23,10 +22,6 @@ public class TenantContext : IdentityDbContext<ApplicationUser, ApplicationRole,
     
     public DbSet<Tenant> Tenants { get; set; }
     
-    public DbSet<City> Cities { get; set; }
-    
-    public DbSet<Country> Countries { get; set; }
-    
     public DbSet<Currency> Currencies { get; set; }
 
     public DbSet<Unit> Units { get; set; }
@@ -39,7 +34,7 @@ public class TenantContext : IdentityDbContext<ApplicationUser, ApplicationRole,
     
     public DbSet<ItemProperty> ItemProperties { get; set; }
 
-    public DbSet<ItemPropertyValue> ItemPropertyOptions { get; set; }
+    public DbSet<ItemPropertyValue> ItemPropertyValues { get; set; }
     
     public DbSet<ItemSize> ItemSizes { get; set; }
     
@@ -60,8 +55,6 @@ public class TenantContext : IdentityDbContext<ApplicationUser, ApplicationRole,
         ModelCreating<Shop>(modelBuilder);
         ModelCreating<Currency>(modelBuilder);
         ModelCreating<Unit>(modelBuilder);
-        ModelCreating<City>(modelBuilder);
-        ModelCreating<Country>(modelBuilder);
         ModelCreating<Category>(modelBuilder);
         modelBuilder.Entity<CategoryItem>()
             .HasKey(x => new { x.CategoryId, x.ItemId });

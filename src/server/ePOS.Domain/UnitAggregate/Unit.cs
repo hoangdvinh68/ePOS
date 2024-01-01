@@ -5,9 +5,6 @@ namespace ePOS.Domain.UnitAggregate;
 
 public class Unit : AuditableEntity
 {
-    [JsonIgnore]
-    public Guid TenantId { get; set; }
-    
     public string Name { get; set; } = default!;
     
     public UnitType Type { get; set; }

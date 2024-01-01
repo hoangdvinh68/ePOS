@@ -1,4 +1,5 @@
-﻿using ePOS.Domain.TenantAggregate;
+﻿using ePOS.Domain.ShopAggregate;
+using ePOS.Domain.TenantAggregate;
 using ePOS.Infrastructure.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,14 +14,7 @@ public static class MigrateUser
         {
             var defaultCurrency = await context.Currencies.FirstOrDefaultAsync(x => x.IsoCode.Equals("VND"));
             if (defaultCurrency is null) throw new ApplicationException("SeedCurrencyFailed");
-            var tenant = new Tenant()
-            {
-                Id = Guid.NewGuid(),
-                Name = "Admin",
-                Code = "admin001",
-                CurrencyId = defaultCurrency.Id,
-                TaxRate = 0
-            };
+            var tenant = new Tenant("Admin", "admin001", defaultCurrency.Id);
             await context.Tenants.AddAsync(tenant);
             var userBaseEntry = await context.Users.AddAsync(new ApplicationUser()
             {
@@ -33,7 +27,15 @@ public static class MigrateUser
                 Status = UserStatus.Active,
                 CreatedAt = DateTimeOffset.Now,
             });
-            tenant.SetCreationTracking(userBaseEntry.Entity.Id);
+            tenant.SetCreationTracking(default, userBaseEntry.Entity.Id);
+            var shop = new Shop()
+            {
+                Id = Guid.NewGuid(),
+                Name = tenant.Name,
+                Status = ShopStatus.Active,
+            };
+            shop.SetCreationTracking(tenant.Id, userBaseEntry.Entity.Id);
+            await context.Shops.AddAsync(shop);
             await userManager.CreateAsync(userBaseEntry.Entity, "Admin@123");
             await context.SaveChangesAsync();
         }

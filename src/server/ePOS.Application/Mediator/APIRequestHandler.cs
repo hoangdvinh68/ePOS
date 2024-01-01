@@ -1,16 +1,16 @@
 ﻿using ePOS.Application.Contracts;
-using ePOS.Shared.ValueObjects;
+using ePOS.Application.ValueObjects;
 using MediatR;
 
 namespace ePOS.Application.Mediator;
 
-public abstract class APIRequestHandle<TRequest> : IRequestHandler<TRequest, APIResponse>
+public abstract class APIRequestHandler<TRequest> : IRequestHandler<TRequest, APIResponse>
     where TRequest : IRequest<APIResponse>
 {
     protected readonly IUserService UserService;
     protected readonly UserClaimsValue UserClaimsValue;
     
-    protected APIRequestHandle(IUserService userService)
+    protected APIRequestHandler(IUserService userService)
     {
         UserService = userService;
         UserClaimsValue = userService.GetUserClaimsValue();
@@ -19,13 +19,13 @@ public abstract class APIRequestHandle<TRequest> : IRequestHandler<TRequest, API
     public abstract Task<APIResponse> Handle(TRequest request, CancellationToken cancellationToken);
 }
 
-public abstract class APIRequestHandle<TRequest, TResponse> : IRequestHandler<TRequest, APIResponse<TResponse>>
+public abstract class APIRequestHandler<TRequest, TResponse> : IRequestHandler<TRequest, APIResponse<TResponse>>
     where TRequest : IRequest<APIResponse<TResponse>>
 {
     protected readonly IUserService UserService;
     protected readonly UserClaimsValue UserClaimsValue;
     
-    protected APIRequestHandle(IUserService userService)
+    protected APIRequestHandler(IUserService userService)
     {
         UserService = userService;
         UserClaimsValue = userService.GetUserClaimsValue();
