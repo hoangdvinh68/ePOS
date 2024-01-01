@@ -21,7 +21,13 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@epos-environments/*": ["./src/environments/*"],
+      "@epos-core/*": ["./src/core/*"],
+      "@epos-pages/*": ["./src/pages/*"],
+      "@epos-shared/*": ["./src/shared/*"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
