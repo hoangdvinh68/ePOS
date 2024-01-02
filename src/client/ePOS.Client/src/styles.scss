@@ -1,2 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/fontawesome/css/all.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "primeng/resources/themes/lara-light-green/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+body {
+  padding: 0;
+  margin: 0;
+}
