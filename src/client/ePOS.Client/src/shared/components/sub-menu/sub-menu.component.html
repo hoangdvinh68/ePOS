@@ -1,0 +1,7 @@
+<div class="flex gap-x-4 mb-5">
+  <div *ngFor="let item of items ?? []"
+       (click)="onActive(item)"
+       class="hover:cursor-pointer p-2 rounded font-medium text-[13px] {{item.active ? 'text-primary' : 'text-black hover:bg-[#e2e2e2]'}}">
+    {{ item.title }}
+  </div>
+</div>
