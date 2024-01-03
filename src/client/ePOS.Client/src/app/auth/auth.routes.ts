@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 
 export const routes: Routes = [
   {
@@ -9,6 +8,11 @@ export const routes: Routes = [
     children: [
       {
         path: '',
+        redirectTo: 'sign-in',
+        pathMatch: 'full',
+      },
+      {
+        path: 'sign-in',
         loadComponent: () =>
           import('./sign-in/sign-in.component').then((c) => c.SignInComponent),
       },

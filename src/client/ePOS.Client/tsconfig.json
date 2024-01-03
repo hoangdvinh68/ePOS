@@ -25,8 +25,13 @@
     "paths": {
       "@eenvironments/*": ["./src/environments/*"],
       "@efeatures/*": ["./src/features/*"],
-      "@eservices": ["./src/shared/services"],
       "@ecomponents": ["./src/shared/components"],
+      "@econstants/*": ["./src/shared/constants/*"],
+      "@eguards": ["./src/shared/guards"],
+      "@einterceptors": ["./src/shared/interceptors"],
+      "@einterfaces/*": ["./src/shared/interfaces/*"],
+      "@eservices": ["./src/shared/services"],
+      "@eutilities": ["./src/shared/utilities"]
     }
   },
   "angularCompilerOptions": {

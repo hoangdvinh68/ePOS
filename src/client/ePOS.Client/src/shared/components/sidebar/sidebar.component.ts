@@ -26,6 +26,13 @@ export class SidebarComponent implements OnInit {
       url: '/library',
       selected: false,
     },
+    {
+      faIcon: '',
+      title: 'Hồ sơ cá nhân',
+      url: '/profile',
+      selected: false,
+      hidden: true,
+    },
   ];
 
   constructor(private _router: Router) {}

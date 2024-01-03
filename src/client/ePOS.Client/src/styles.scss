@@ -1,9 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/fontawesome/css/all.css";
+@import "./assets/fonts/lexend-deca.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/themes/md-light-indigo/theme.css";
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
@@ -18,12 +19,16 @@
 }
 
 html {
-  font-size: 14px
+  font-size: 14px;
 }
 
 body {
   padding: 0;
   margin: 0;
+}
+
+* {
+  font-family: "Lexend Deca", sans-serif;
 }
 
 div, a, p, h1, h2, h3, h4 {
@@ -43,8 +48,14 @@ a {
 }
 
 
-.cart-content {
+.e-cart-content {
   background-color: white;
-  padding: 35px 28px;
+  padding: 35px 40px 60px 40px;
   border-radius: 8px;
+
+  .e-cart-header {
+    color: var(--black);
+    font-size: 20px;
+    font-weight: bold;
+  }
 }

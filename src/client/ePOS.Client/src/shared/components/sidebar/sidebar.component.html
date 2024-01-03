@@ -1,8 +1,10 @@
 <div class="h-full bg-[#FFF] shadow-lg">
   <ng-container [ngTemplateOutlet]="logo"></ng-container>
-  <ng-container *ngFor="let item of items"
-                [ngTemplateOutlet]="menuItem"
-                [ngTemplateOutletContext]="{$implicit: item}"></ng-container>
+  <ng-container *ngFor="let item of items">
+    <ng-container *ngIf="!item['hidden']"
+                  [ngTemplateOutlet]="menuItem"
+                  [ngTemplateOutletContext]="{$implicit: item}"></ng-container>
+  </ng-container>
 </div>
 
 <ng-template #logo>

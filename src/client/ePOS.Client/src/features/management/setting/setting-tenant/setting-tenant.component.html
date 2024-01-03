@@ -1,3 +1,36 @@
-<div class="cart-content">
-  <div class="font-bold text-[20px]">Thông tin thương hiệu</div>
+<div class="e-cart-content">
+  <div class="e-cart-header">Thông tin thương hiệu</div>
+  <form class="grid grid-cols-4 gap-x-10 gap-y-6 mt-12">
+    <span class="p-float-label">
+      <input pInputText class="p-inputtext-lg w-full"/>
+      <label>Mã thương hiệu</label>
+    </span>
+    <span class="p-float-label">
+      <input pInputText class="p-inputtext-lg w-full"/>
+      <label>Tên cửa hàng</label>
+    </span>
+    <p-dropdown placeholder="Tiền tệ mặc định"
+                styleClass="w-full h-full"
+                [editable]="true"></p-dropdown>
+    <span class="p-float-label">
+      <input pInputText class="p-inputtext-lg w-full"/>
+      <label>Tên thương hiệu</label>
+    </span>
+    <span class="p-float-label">
+      <input pInputText class="p-inputtext-lg w-full"/>
+      <label>ID</label>
+    </span>
+    <span class="p-float-label">
+      <input pInputText class="p-inputtext-lg w-full"/>
+      <label>Ngày đăng ký</label>
+    </span>
+    <span class="p-float-label">
+      <input pInputText class="p-inputtext-lg w-full"/>
+      <label>Tax ID</label>
+    </span>
+    <span class="p-float-label">
+      <input pInputText class="p-inputtext-lg w-full"/>
+      <label>Địa chỉ công ty</label>
+    </span>
+  </form>
 </div>
