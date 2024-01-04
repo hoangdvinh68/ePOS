@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { filter } from 'rxjs';
+import { RippleModule } from 'primeng/ripple';
 
 export interface IMenuItem {
   title: string;
@@ -12,7 +13,7 @@ export interface IMenuItem {
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [NgForOf, RouterLink],
+  imports: [NgForOf, RouterLink, RippleModule],
   templateUrl: './menu.component.html',
   styles: ``,
 })

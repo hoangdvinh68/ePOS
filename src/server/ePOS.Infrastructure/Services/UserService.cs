@@ -4,6 +4,7 @@ using ePOS.Application.Contracts;
 using ePOS.Application.Exceptions;
 using ePOS.Application.Extensions;
 using ePOS.Application.Features.User.Commands;
+using ePOS.Application.Features.User.Queries;
 using ePOS.Application.Features.User.Responses;
 using ePOS.Application.ValueObjects;
 using ePOS.Domain.ShopAggregate;
@@ -125,6 +126,19 @@ public class UserService : IUserService
             TenantId = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("tenantId"))?.Value.ToGuid() ?? default,
             FullName = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("fullName"))?.Value,
             Email = decodedToken.Claims.FirstOrDefault(x => x.Type.Equals("email"))?.Value,
+        };
+    }
+
+    public async Task<GetProfileResponse> GetProfileAsync(GetProfileQuery query, CancellationToken cancellationToken)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.Equals(query.Email), cancellationToken);
+        if (user is null) throw new BadRequestException("EmailNotFound");
+        return new GetProfileResponse()
+        {
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email
         };
     }
 }

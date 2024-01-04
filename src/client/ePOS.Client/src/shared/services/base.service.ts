@@ -7,7 +7,7 @@ export class BaseService {
   protected controller!: string;
   constructor() {}
 
-  getApiUrl(action?: string) {
+  protected getApiUrl(action?: string) {
     return `${this.host}/api/v1/${this.controller}/${action}`;
   }
 }

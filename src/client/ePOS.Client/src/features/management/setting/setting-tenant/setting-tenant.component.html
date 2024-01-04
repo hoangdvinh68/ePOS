@@ -1,35 +1,57 @@
 <div class="e-cart-content">
   <div class="e-cart-header">Thông tin thương hiệu</div>
-  <form class="grid grid-cols-4 gap-x-10 gap-y-6 mt-12">
+  <form [formGroup]="form"
+        class="grid grid-cols-4 gap-x-10 gap-y-6 mt-12">
     <span class="p-float-label">
-      <input pInputText class="p-inputtext-lg w-full"/>
+      <input pInputText
+             formControlName="code"
+             class="p-inputtext-lg w-full"/>
       <label>Mã thương hiệu</label>
     </span>
     <span class="p-float-label">
-      <input pInputText class="p-inputtext-lg w-full"/>
-      <label>Tên cửa hàng</label>
-    </span>
-    <p-dropdown placeholder="Tiền tệ mặc định"
-                styleClass="w-full h-full"
-                [editable]="true"></p-dropdown>
-    <span class="p-float-label">
-      <input pInputText class="p-inputtext-lg w-full"/>
+      <input pInputText
+             formControlName="name"
+             class="p-inputtext-lg w-full"/>
       <label>Tên thương hiệu</label>
     </span>
     <span class="p-float-label">
-      <input pInputText class="p-inputtext-lg w-full"/>
+      <p-dropdown placeholder="Tiền tệ mặc định"
+                  styleClass="p-inputtext-lg"
+                  [options]="(currencies$ | async)!"
+                  optionLabel="isoCode"
+                  optionValue="id"
+                  formControlName="currencyId"
+                  [editable]="true"></p-dropdown>
+      <label>Tiền tệ mặc định</label>
+    </span>
+    <span class="p-float-label">
+      <input pInputText
+             formControlName="companyName"
+             class="p-inputtext-lg w-full"/>
+      <label>Tên công ty</label>
+    </span>
+    <span class="p-float-label">
+      <input pInputText
+             formControlName="id"
+             class="p-inputtext-lg w-full"/>
       <label>ID</label>
     </span>
     <span class="p-float-label">
-      <input pInputText class="p-inputtext-lg w-full"/>
+      <input pInputText
+             formControlName="createdAt"
+             [disabled]="true"
+             class="p-inputtext-lg w-full"/>
       <label>Ngày đăng ký</label>
     </span>
     <span class="p-float-label">
-      <input pInputText class="p-inputtext-lg w-full"/>
+      <input pInputText
+             class="p-inputtext-lg w-full"/>
       <label>Tax ID</label>
     </span>
     <span class="p-float-label">
-      <input pInputText class="p-inputtext-lg w-full"/>
+      <input pInputText
+             formControlName="companyAddress"
+             class="p-inputtext-lg w-full"/>
       <label>Địa chỉ công ty</label>
     </span>
   </form>

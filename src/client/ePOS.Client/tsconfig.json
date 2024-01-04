@@ -31,6 +31,7 @@
       "@einterceptors": ["./src/shared/interceptors"],
       "@einterfaces/*": ["./src/shared/interfaces/*"],
       "@eservices": ["./src/shared/services"],
+      "@estores/*": ["./src/shared/stores/*"],
       "@eutilities": ["./src/shared/utilities"]
     }
   },

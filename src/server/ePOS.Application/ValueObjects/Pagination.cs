@@ -2,7 +2,7 @@
 
 namespace ePOS.Application.ValueObjects;
 
-public class QueryDetail
+public class Pagination
 {
     [JsonPropertyName("pageIndex")]
     public int PageIndex { get; set; }

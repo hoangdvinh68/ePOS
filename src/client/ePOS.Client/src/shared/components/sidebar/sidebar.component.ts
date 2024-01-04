@@ -2,11 +2,12 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { CommonModule, NgTemplateOutlet } from '@angular/common';
 import { filter } from 'rxjs';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, NgTemplateOutlet, CommonModule],
+  imports: [RouterLink, NgTemplateOutlet, CommonModule, RippleModule],
   templateUrl: './sidebar.component.html',
   styles: ``,
 })

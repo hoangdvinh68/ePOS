@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
   const notificationService = inject(NotificationService);
 
-  const canActive = userService.isAccessTokenExpiredOrNull();
+  const canActive = !userService.isAccessTokenExpiredOrNull();
 
   if (!canActive) {
     userService.clearDataToken();

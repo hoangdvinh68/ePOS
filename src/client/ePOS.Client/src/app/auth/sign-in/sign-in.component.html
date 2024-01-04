@@ -14,6 +14,7 @@
         <p-password [feedback]="false"
                     formControlName="password"
                     styleClass="w-full"
+                    (keydown.enter)="onSubmit()"
                     [toggleMask]="true"
                     inputStyleClass="w-full p-inputtext-lg"></p-password>
         <label>Mật khẩu</label>

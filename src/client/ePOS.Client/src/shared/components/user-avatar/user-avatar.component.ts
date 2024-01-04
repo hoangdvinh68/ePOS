@@ -31,6 +31,10 @@ export class UserAvatarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (!this._userService.getUserClaimsValue()) {
+      this.onSignOut();
+      return;
+    }
     this.fullName = this._userService.getUserClaimsValue()?.fullName;
     this.email = this._userService.getUserClaimsValue()?.email;
     const fullNameArray = this.fullName?.split(' ') ?? [];

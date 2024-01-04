@@ -13,6 +13,7 @@ import { emailRegex } from '@eutilities';
 import { NotificationService, UserService } from '@eservices';
 import { ISignInRequest } from '@einterfaces/user.interfaces';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -38,8 +39,11 @@ export class SignInComponent implements OnInit {
 
   ngOnInit() {
     this.form = this._formBuilder.group({
-      email: [null, [Validators.required, Validators.pattern(emailRegex)]],
-      password: [null, Validators.required],
+      email: [
+        'admin@epos.com',
+        [Validators.required, Validators.pattern(emailRegex)],
+      ],
+      password: ['Admin@123', Validators.required],
     });
   }
 
@@ -52,6 +56,16 @@ export class SignInComponent implements OnInit {
         this._userService.setDataToken(response);
         this._notificationService.success('Đăng nhập thành công');
         this._router.navigate(['/']).then();
+      },
+      error: (error: HttpErrorResponse) => {
+        switch (error.error['message']) {
+          case 'EmailNotFound':
+            this._notificationService.error('Email không tồn tại');
+            break;
+          case 'IncorrectPassword':
+            this._notificationService.error('Mật khẩu không chính xác');
+            break;
+        }
       },
     });
   }

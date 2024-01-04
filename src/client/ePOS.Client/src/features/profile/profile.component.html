@@ -1,23 +1,30 @@
 <app-menu [items]="items"></app-menu>
 <div class="e-cart-content w-[60%]">
   <div class="e-cart-header">Thông tin người dùng</div>
-  <form class="mt-12">
+  <form [formGroup]="form" class="mt-12">
     <div class="grid grid-cols-2 gap-8 max-w-[720px]">
       <span class="p-float-label">
-        <input pInputText class="p-inputtext-lg w-full"/>
+        <input pInputText
+               formControlName="firstName"
+               class="p-inputtext-lg w-full"/>
         <label>Họ</label>
       </span>
       <span class="p-float-label">
-        <input pInputText class="p-inputtext-lg w-full"/>
+        <input pInputText
+               formControlName="lastName"
+               class="p-inputtext-lg w-full"/>
         <label>Tên</label>
       </span>
       <span class="p-float-label">
-        <input pInputText class="p-inputtext-lg w-full"/>
+        <input pInputText
+               formControlName="email"
+               class="p-inputtext-lg w-full"/>
         <label>Email</label>
       </span>
     </div>
     <div class="mt-[40px]">
-      <p-button size="large" styleClass="gap-x-3">
+      <p-button size="large"
+                styleClass="gap-x-3">
         <i class="fa-regular fa-unlock"></i>
         <span>Đổi mật khẩu</span>
       </p-button>

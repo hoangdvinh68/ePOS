@@ -33,13 +33,10 @@ public class SignUpCommandValidator : AbstractValidator<SignUpCommand>
 
 public class SignUpCommandHandler : APIRequestHandler<SignUpCommand, SignUpResponse>
 {
-    private readonly IUserService _userService;
-
     public SignUpCommandHandler(IUserService userService, ITenantContext context) : base(userService)
     {
-        _userService = userService;
     }
 
     protected override async Task<SignUpResponse> HandleAsync(SignUpCommand request,
-        CancellationToken cancellationToken) => await _userService.SignUpAsync(request, cancellationToken);
+        CancellationToken cancellationToken) => await UserService.SignUpAsync(request, cancellationToken);
 }

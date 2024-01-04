@@ -24,13 +24,8 @@ public class SignInCommandValidator : AbstractValidator<SignInCommand>
 
 public class SignInCommandHandler : APIRequestHandler<SignInCommand, SignInResponse>
 {
-    private readonly IUserService _userService;
-
-    public SignInCommandHandler(IUserService userService, ITenantContext context) : base(userService)
-    {
-        _userService = userService;
-    }
+    public SignInCommandHandler(IUserService userService, ITenantContext context) : base(userService) { }
 
     protected override async Task<SignInResponse> HandleAsync(SignInCommand request,
-        CancellationToken cancellationToken) => await _userService.SignInAsync(request, cancellationToken);
+        CancellationToken cancellationToken) => await UserService.SignInAsync(request, cancellationToken);
 }

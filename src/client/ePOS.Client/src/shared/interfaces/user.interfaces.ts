@@ -7,3 +7,10 @@ export interface ISignInResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface IGetProfileResponse {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}

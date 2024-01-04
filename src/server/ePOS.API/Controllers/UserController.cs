@@ -1,4 +1,5 @@
 ﻿using ePOS.Application.Features.User.Commands;
+using ePOS.Application.Features.User.Queries;
 using ePOS.Application.Features.User.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,12 @@ public class UserController : ControllerBase
     public UserController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet("profile")]
+    public async Task<ActionResult<GetProfileQuery>> Profile([FromQuery] GetProfileQuery query)
+    {
+        return Ok(await _mediator.Send(query));
     }
 
     [HttpPost("sign-in")]

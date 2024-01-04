@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { ISignInRequest, ISignInResponse } from '@einterfaces/user.interfaces';
+import {
+  IGetProfileResponse,
+  ISignInRequest,
+  ISignInResponse,
+} from '@einterfaces/user.interfaces';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { IAPIResponse, IUserClaimsValue } from '@einterfaces/system.interfaces';
@@ -24,6 +28,17 @@ export class UserService extends BaseService {
     const api = this.getApiUrl('sign-in');
     return this._httpClient
       .post<IAPIResponse<ISignInResponse>>(api, payload)
+      .pipe(map((response) => response.data));
+  }
+
+  getProfile(email: string): Observable<IGetProfileResponse> {
+    const api = this.getApiUrl('profile');
+    return this._httpClient
+      .get<IAPIResponse<IGetProfileResponse>>(api, {
+        params: {
+          email,
+        },
+      })
       .pipe(map((response) => response.data));
   }
 
