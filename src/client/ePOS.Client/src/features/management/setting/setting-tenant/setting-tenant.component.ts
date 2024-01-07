@@ -37,7 +37,6 @@ export class SettingTenantComponent implements OnInit {
     this._store.dispatch(new ListCurrency());
     this.tenant$.subscribe({
       next: (data) => {
-        console.log(data);
         this.form.patchValue({
           id: data?.id,
           name: data?.name,

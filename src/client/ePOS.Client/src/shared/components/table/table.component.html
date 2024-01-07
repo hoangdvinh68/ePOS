@@ -1,0 +1,31 @@
+<p-table #dynamicTable
+         [value]="data"
+         [columns]="columns.toArray()"
+         [scrollable]="true"
+         scrollHeight="800px">
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let column of columns">
+        <ng-container *ngIf="column.headerTpl; else defaultHeader">
+          <ng-container [ngTemplateOutlet]="column.headerTpl.template"></ng-container>
+        </ng-container>
+        <ng-template #defaultHeader>
+          {{ column.header }}
+        </ng-template>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-row let-columns="columns" let-index="rowIndex">
+    <tr>
+      <td *ngFor="let column of columns" [width]="column['width']">
+        <ng-container *ngIf="column['cellTpl']; else defaultCell">
+          <ng-container [ngTemplateOutlet]="column['cellTpl']['template']"
+                        [ngTemplateOutletContext]="{ $implicit: row, index: index }"></ng-container>
+        </ng-container>
+        <ng-template #defaultCell>
+          {{ row[column.key] }}
+        </ng-template>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

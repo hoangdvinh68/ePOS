@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseService } from './base.service';
+import { BaseApiService } from './base-api.service';
 import {
   IGetProfileResponse,
   ISignInRequest,
@@ -18,7 +18,7 @@ import {
 @Injectable({
   providedIn: 'root',
 })
-export class UserService extends BaseService {
+export class UserService extends BaseApiService {
   constructor(private _httpClient: HttpClient) {
     super();
     this.controller = 'user';

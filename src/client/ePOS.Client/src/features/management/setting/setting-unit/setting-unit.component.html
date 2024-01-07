@@ -1,1 +1,55 @@
-<p>setting-unit works!</p>
+<div *ngIf="formType" class="e-cart-content mb-6">
+  <div class="e-cart-header mb-6">{{formType === 'create' ? 'Thêm' : 'Cập nhật'}} đơn vị</div>
+  <form [formGroup]="form">
+    <span class="p-float-label">
+      <input pInputText
+             formControlName="name"
+             class="p-inputtext-lg w-[600px]"/>
+      <label>Tên đơn vị</label>
+  </span>
+    <div class="flex gap-x-2 justify-end mt-5">
+      <p-button label="Hủy"
+                [outlined]="true"
+                (onClick)="onCancel()"></p-button>
+      <p-button label="Hoàn thành"
+                (onClick)="onSubmit()"
+                [loading]="(loadingCreate$ | async)! || (loadingUpdate$ | async)!"></p-button>
+    </div>
+  </form>
+</div>
+
+<div class="e-cart-content">
+  <div class="flex gap-x-5 items-center justify-between mb-12">
+    <div class="e-cart-header">Danh sách đơn vị</div>
+    <p-button label="Thêm mới" (onClick)="onCreate()"></p-button>
+  </div>
+  <app-table [data]="(units$ | async)!">
+    <app-column header="STT">
+      <ng-template appCell let-index="index">
+        {{ index + 1 }}
+      </ng-template>
+    </app-column>
+    <app-column key="name" header="Tên đơn vị"></app-column>
+    <app-column key="type" header="Phân loại">
+      <ng-template appCell let-row>
+        {{ row.type | toUnitTypeString }}
+      </ng-template>
+    </app-column>
+    <app-column header="Số lượng nguyên liệu sử dụng"></app-column>
+    <app-column header="Số lượng món ăn sử dụng"></app-column>
+    <app-column header="Tác vụ" width="200px">
+      <ng-template appCell let-row>
+        <div *ngIf="row['type'] === UnitTypeEnum.Manual"
+             class="flex gap-x-2">
+          <p-button size="small"
+                    label="Chỉnh sửa"
+                    (onClick)="onUpdate(row)"></p-button>
+          <p-button severity="warning"
+                    size="small"
+                    label="Xóa"
+                    (onClick)="onDelete(row['id'])"></p-button>
+        </div>
+      </ng-template>
+    </app-column>
+  </app-table>
+</div>

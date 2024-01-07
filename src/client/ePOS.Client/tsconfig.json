@@ -27,10 +27,12 @@
       "@efeatures/*": ["./src/features/*"],
       "@ecomponents": ["./src/shared/components"],
       "@econstants/*": ["./src/shared/constants/*"],
+      "@eenums/*": ["./src/shared/enums/*"],
       "@eguards": ["./src/shared/guards"],
       "@einterceptors": ["./src/shared/interceptors"],
       "@einterfaces/*": ["./src/shared/interfaces/*"],
-      "@eservices": ["./src/shared/services"],
+      "@epipes/_index": ["./src/shared/pipes/_index"],
+      "@eservices": ["./src/shared/services/_index"],
       "@estores/*": ["./src/shared/stores/*"],
       "@eutilities": ["./src/shared/utilities"]
     }

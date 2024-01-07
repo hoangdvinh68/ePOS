@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '@eenvironments/environment';
 
 @Injectable()
-export class BaseService {
+export class BaseApiService {
   protected host = environment.host;
   protected controller!: string;
   constructor() {}

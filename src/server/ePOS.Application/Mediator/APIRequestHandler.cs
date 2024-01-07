@@ -15,8 +15,20 @@ public abstract class APIRequestHandler<TRequest> : IRequestHandler<TRequest, AP
         UserService = userService;
         UserClaimsValue = userService.GetUserClaimsValue();
     }
-    
-    public abstract Task<APIResponse> Handle(TRequest request, CancellationToken cancellationToken);
+
+    public virtual async Task<APIResponse> Handle(TRequest request, CancellationToken cancellationToken)
+    {
+        await HandleAsync(request, cancellationToken);
+        return new APIResponse()
+        {
+            Success = true,
+            StatusCode = 200,
+        };
+    }
+
+
+    public abstract Task HandleAsync(TRequest request, CancellationToken cancellationToken);
+
 }
 
 public abstract class APIRequestHandler<TRequest, TResponse> : IRequestHandler<TRequest, APIResponse<TResponse>>

@@ -34,7 +34,8 @@ public class UpdateUnitCommandHandler : APIRequestHandler<UpdateUnitCommand, Uni
 
     protected override async Task<Unit> HandleAsync(UpdateUnitCommand request, CancellationToken cancellationToken)
     {
-        var unit = await _context.Units.FirstOrDefaultAsync(x => x.Id.Equals(request.Id), cancellationToken);
+        var unit = await _context.Units
+            .FirstOrDefaultAsync(x => x.Id.Equals(request.Id) && x.TenantId.Equals(UserClaimsValue.TenantId), cancellationToken);
         if (unit is null) throw new RecordNotFound(nameof(Unit), request.Id);
         unit.Name = request.Name;
         unit.SetModificationTracking(UserClaimsValue.Id);

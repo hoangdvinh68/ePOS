@@ -34,4 +34,10 @@ public class UnitController : ControllerBase
     {
         return Ok(await _mediator.Send(command));
     }
+
+    [HttpDelete("delete")]
+    public async Task<IActionResult> Delete([FromQuery] DeleteUnitCommand command)
+    {
+        return Ok(await _mediator.Send(command));
+    }
 }
